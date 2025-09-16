@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Card } from "@/components/ui/card";
 
 const NotFound = () => {
   const location = useLocation();
@@ -9,14 +10,32 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 underline hover:text-blue-700">
-          Return to Home
+    <div className="min-h-screen ocean-container flex items-center justify-center p-4">
+      <Card className="text-center p-8 bg-card/80 backdrop-blur-sm border-primary/30">
+        <h1 className="mb-4 text-4xl font-bold text-primary">404</h1>
+        <p className="mb-4 text-xl text-muted-foreground">Oops! This ocean area is unexplored</p>
+        <a 
+          href="/" 
+          className="inline-block px-6 py-3 treasure-effect rounded-lg font-bold hover:scale-105 transition-transform"
+        >
+          Return to Ocean Adventure
         </a>
-      </div>
+      </Card>
+
+      {/* Ocean bubbles */}
+      {Array.from({ length: 15 }).map((_, i) => (
+        <div
+          key={i}
+          className="bubble fixed pointer-events-none"
+          style={{
+            width: Math.random() * 25 + 10 + 'px',
+            height: Math.random() * 25 + 10 + 'px',
+            left: Math.random() * 100 + '%',
+            top: Math.random() * 100 + '%',
+            animationDelay: Math.random() * 4 + 's'
+          }}
+        />
+      ))}
     </div>
   );
 };
