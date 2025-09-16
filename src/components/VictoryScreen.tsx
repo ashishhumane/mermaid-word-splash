@@ -85,21 +85,23 @@ export function VictoryScreen({ score, accuracy, timeElapsed, onRestart }: Victo
         </Button>
       </div>
 
-      {/* Floating bubbles for celebration */}
+      {/* Enhanced celebration bubbles */}
       <div className="fixed inset-0 pointer-events-none">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div
-            key={i}
-            className="bubble"
-            style={{
-              width: Math.random() * 30 + 15 + 'px',
-              height: Math.random() * 30 + 15 + 'px',
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-              animationDelay: Math.random() * 4 + 's'
-            }}
-          />
-        ))}
+        {Array.from({ length: 25 }).map((_, i) => {
+          const bubbleType = i % 3 === 0 ? 'bubble-large' : i % 2 === 0 ? 'bubble-medium' : 'bubble-small';
+          return (
+            <div
+              key={i}
+              className={`bubble ${bubbleType} animate-realistic-float treasure-effect`}
+              style={{
+                left: Math.random() * 100 + '%',
+                bottom: Math.random() * 30 - 15 + '%',
+                animationDelay: Math.random() * 6 + 's',
+                animationDuration: (Math.random() * 3 + 3) + 's'
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );

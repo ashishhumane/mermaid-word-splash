@@ -80,14 +80,36 @@ export default {
             height: "0",
           },
         },
-        "float": {
-          "0%, 100%": { 
-            transform: "translateY(0px) rotate(0deg)",
-            opacity: "0.4"
+        "realistic-float": {
+          "0%": { 
+            transform: "translateY(0px) translateX(0px) scale(1)",
+            opacity: "0.2"
+          },
+          "25%": { 
+            transform: "translateY(-30px) translateX(5px) scale(1.1)",
+            opacity: "0.6"
           },
           "50%": { 
-            transform: "translateY(-20px) rotate(180deg)",
+            transform: "translateY(-60px) translateX(-3px) scale(1.2)",
             opacity: "0.8"
+          },
+          "75%": { 
+            transform: "translateY(-90px) translateX(8px) scale(1.1)",
+            opacity: "0.9"
+          },
+          "100%": { 
+            transform: "translateY(-120px) translateX(0px) scale(0.8)",
+            opacity: "0"
+          }
+        },
+        "wave-shimmer": {
+          "0%, 100%": { 
+            transform: "translateX(-20px)",
+            opacity: "0.3"
+          },
+          "50%": { 
+            transform: "translateX(20px)",
+            opacity: "0.6"
           }
         },
         "treasure-pulse": {
@@ -110,7 +132,8 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 4s ease-in-out infinite",
+        "realistic-float": "realistic-float 6s ease-in-out infinite",
+        "wave-shimmer": "wave-shimmer 4s ease-in-out infinite",
         "treasure-pulse": "treasure-pulse 0.6s ease-out",
         "shake": "shake 0.5s ease-in-out",
         "mermaid-dance": "mermaid-dance 2s ease-in-out infinite"

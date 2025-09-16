@@ -10,21 +10,35 @@ interface MermaidRevealProps {
 export function MermaidReveal({ revealedParts, totalParts, isComplete }: MermaidRevealProps) {
   const revealPercentage = (revealedParts / totalParts) * 100;
 
+  // Generate bubble data for consistent animation
+  const bubbles = Array.from({ length: 15 }).map((_, i) => ({
+    id: i,
+    size: ['bubble-small', 'bubble-medium', 'bubble-large'][i % 3],
+    left: Math.random() * 85 + 5,
+    bottom: Math.random() * 90 + 5,
+    delay: Math.random() * 6
+  }));
+
   return (
     <div className="relative w-64 h-64 mx-auto">
-      {/* Ocean background with bubbles */}
+      {/* Ocean background with enhanced effects */}
       <div className="absolute inset-0 ocean-container rounded-3xl">
-        {/* Floating bubbles */}
-        {Array.from({ length: 8 }).map((_, i) => (
+        
+        {/* Ocean floor */}
+        <div className="ocean-floor rounded-b-3xl" />
+        
+        {/* Coral reef */}
+        <div className="coral-reef" />
+        
+        {/* Realistic floating bubbles */}
+        {bubbles.map((bubble) => (
           <div
-            key={i}
-            className="bubble"
+            key={bubble.id}
+            className={`bubble ${bubble.size} animate-realistic-float`}
             style={{
-              width: Math.random() * 20 + 10 + 'px',
-              height: Math.random() * 20 + 10 + 'px',
-              left: Math.random() * 80 + 10 + '%',
-              top: Math.random() * 80 + 10 + '%',
-              animationDelay: Math.random() * 4 + 's'
+              left: bubble.left + '%',
+              bottom: bubble.bottom + '%',
+              animationDelay: bubble.delay + 's'
             }}
           />
         ))}

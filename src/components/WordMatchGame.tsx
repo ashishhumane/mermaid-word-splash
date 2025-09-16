@@ -17,7 +17,8 @@ export function WordMatchGame() {
     getAccuracy,
     getFormattedTime,
     totalWords,
-    totalParts
+    totalParts,
+    speakCurrentWord
   } = useWordMatchGame();
 
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
@@ -68,7 +69,7 @@ export function WordMatchGame() {
               Help Reveal the Mermaid! 🧜‍♀️
             </h2>
             <p className="text-center text-muted-foreground mb-4">
-              Listen to the word and choose the correct spelling
+              The word is spoken automatically. Choose the correct spelling!
             </p>
             <MermaidReveal
               revealedParts={gameState.revealedParts}
@@ -85,7 +86,7 @@ export function WordMatchGame() {
           <Card className="p-6 bg-card/80 backdrop-blur-sm border-primary/30 w-full">
             <div className="text-center space-y-4">
               <h3 className="text-lg text-muted-foreground">
-                Listen and choose:
+                Find the word:
               </h3>
               <div className="flex items-center justify-center gap-4">
                 <div className="text-3xl font-bold text-primary">
@@ -94,10 +95,11 @@ export function WordMatchGame() {
                 <TTSButton 
                   word={currentWord.target} 
                   disabled={gameState.isAnswering}
+                  onSpeak={speakCurrentWord}
                 />
               </div>
               <p className="text-sm text-muted-foreground">
-                Click the speaker to hear the word again
+                Word spoken automatically • Click speaker to repeat
               </p>
             </div>
           </Card>
@@ -137,21 +139,29 @@ export function WordMatchGame() {
         </div>
       </div>
 
-      {/* Floating Ocean Elements */}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <div
-          key={i}
-          className="bubble fixed pointer-events-none"
-          style={{
-            width: Math.random() * 25 + 10 + 'px',
-            height: Math.random() * 25 + 10 + 'px',
-            left: Math.random() * 100 + '%',
-            top: Math.random() * 100 + '%',
-            animationDelay: Math.random() * 4 + 's',
-            animationDuration: Math.random() * 3 + 4 + 's'
-          }}
-        />
-      ))}
+      {/* Enhanced Ocean Atmosphere */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Continuous bubble stream */}
+        {Array.from({ length: 35 }).map((_, i) => {
+          const bubbleType = i % 3 === 0 ? 'bubble-large' : i % 2 === 0 ? 'bubble-medium' : 'bubble-small';
+          return (
+            <div
+              key={i}
+              className={`bubble ${bubbleType} animate-realistic-float`}
+              style={{
+                left: Math.random() * 100 + '%',
+                bottom: Math.random() * 20 - 10 + '%',
+                animationDelay: Math.random() * 8 + 's',
+                animationDuration: (Math.random() * 4 + 4) + 's'
+              }}
+            />
+          );
+        })}
+        
+        {/* Additional coral decorations */}
+        <div className="coral-reef opacity-30" />
+        <div className="ocean-floor opacity-40" />
+      </div>
     </div>
   );
 }

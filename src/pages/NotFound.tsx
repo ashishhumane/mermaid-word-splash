@@ -11,6 +11,10 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen ocean-container flex items-center justify-center p-4">
+      {/* Ocean atmosphere elements */}
+      <div className="coral-reef opacity-30" />
+      <div className="ocean-floor opacity-40" />
+      
       <Card className="text-center p-8 bg-card/80 backdrop-blur-sm border-primary/30">
         <h1 className="mb-4 text-4xl font-bold text-primary">404</h1>
         <p className="mb-4 text-xl text-muted-foreground">Oops! This ocean area is unexplored</p>
@@ -22,20 +26,21 @@ const NotFound = () => {
         </a>
       </Card>
 
-      {/* Ocean bubbles */}
-      {Array.from({ length: 15 }).map((_, i) => (
-        <div
-          key={i}
-          className="bubble fixed pointer-events-none"
-          style={{
-            width: Math.random() * 25 + 10 + 'px',
-            height: Math.random() * 25 + 10 + 'px',
-            left: Math.random() * 100 + '%',
-            top: Math.random() * 100 + '%',
-            animationDelay: Math.random() * 4 + 's'
-          }}
-        />
-      ))}
+      {/* Enhanced ocean bubbles */}
+      {Array.from({ length: 20 }).map((_, i) => {
+        const bubbleType = i % 3 === 0 ? 'bubble-large' : i % 2 === 0 ? 'bubble-medium' : 'bubble-small';
+        return (
+          <div
+            key={i}
+            className={`bubble ${bubbleType} animate-realistic-float`}
+            style={{
+              left: Math.random() * 100 + '%',
+              bottom: Math.random() * 25 - 10 + '%',
+              animationDelay: Math.random() * 6 + 's'
+            }}
+          />
+        );
+      })}
     </div>
   );
 };

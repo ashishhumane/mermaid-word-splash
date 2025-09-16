@@ -5,9 +5,10 @@ import { useState } from "react";
 interface TTSButtonProps {
   word: string;
   disabled?: boolean;
+  onSpeak?: () => void;
 }
 
-export function TTSButton({ word, disabled }: TTSButtonProps) {
+export function TTSButton({ word, disabled, onSpeak }: TTSButtonProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const speakWord = () => {
@@ -18,14 +19,15 @@ export function TTSButton({ word, disabled }: TTSButtonProps) {
       speechSynthesis.cancel();
       
       const utterance = new SpeechSynthesisUtterance(word);
-      utterance.rate = 0.8;
-      utterance.pitch = 1.1;
-      utterance.volume = 0.8;
+      utterance.rate = 0.7;
+      utterance.pitch = 1.2;
+      utterance.volume = 0.9;
       
       utterance.onend = () => setIsSpeaking(false);
       utterance.onerror = () => setIsSpeaking(false);
       
       speechSynthesis.speak(utterance);
+      onSpeak?.();
     }
   };
 
@@ -33,13 +35,14 @@ export function TTSButton({ word, disabled }: TTSButtonProps) {
     <Button
       onClick={speakWord}
       disabled={disabled || isSpeaking}
-      className="coral-decoration rounded-full w-16 h-16 hover:scale-110 transition-transform"
+      className="coral-decoration rounded-full w-12 h-12 hover:scale-110 transition-transform"
       variant="secondary"
+      title="Hear the word again"
     >
       {isSpeaking ? (
-        <VolumeX className="h-8 w-8" />
+        <VolumeX className="h-5 w-5" />
       ) : (
-        <Volume2 className="h-8 w-8" />
+        <Volume2 className="h-5 w-5" />
       )}
     </Button>
   );

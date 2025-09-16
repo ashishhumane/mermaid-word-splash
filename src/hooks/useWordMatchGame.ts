@@ -88,6 +88,29 @@ export function useWordMatchGame() {
 
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
 
+  // Auto-speak the current word when it changes
+  const speakCurrentWord = useCallback(() => {
+    const currentWord = WORD_PAIRS[gameState.currentWordIndex];
+    if ('speechSynthesis' in window && currentWord) {
+      speechSynthesis.cancel(); // Cancel any ongoing speech
+      
+      setTimeout(() => {
+        const utterance = new SpeechSynthesisUtterance(currentWord.target);
+        utterance.rate = 0.7;
+        utterance.pitch = 1.2;
+        utterance.volume = 0.9;
+        speechSynthesis.speak(utterance);
+      }, 800); // Small delay for better UX
+    }
+  }, [gameState.currentWordIndex]);
+
+  // Speak word when game starts or word changes
+  useEffect(() => {
+    if (!gameState.isComplete && !gameState.isAnswering) {
+      speakCurrentWord();
+    }
+  }, [gameState.currentWordIndex, gameState.isComplete, speakCurrentWord]);
+
   // Update timer
   useEffect(() => {
     if (!gameState.isComplete) {
@@ -177,6 +200,7 @@ export function useWordMatchGame() {
     getAccuracy,
     getFormattedTime,
     totalWords: WORD_PAIRS.length,
-    totalParts: TOTAL_MERMAID_PARTS
+    totalParts: TOTAL_MERMAID_PARTS,
+    speakCurrentWord
   };
 }
