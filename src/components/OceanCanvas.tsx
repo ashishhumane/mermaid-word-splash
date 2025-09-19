@@ -38,17 +38,28 @@ export function OceanCanvas({ width = 800, height = 600, className = "" }: Ocean
     const initializeCreatures = () => {
       fishRef.current = [];
       
-      // Add various sea creatures
-      for (let i = 0; i < 15; i++) {
-        const types: Fish['type'][] = ['fish', 'jellyfish', 'seahorse'];
+      // Colorful fish colors
+      const fishColors = [
+        'hsl(30, 80%, 60%)', // Orange
+        'hsl(260, 70%, 65%)', // Purple  
+        'hsl(340, 85%, 55%)', // Pink/Coral
+        'hsl(120, 60%, 50%)', // Green
+        'hsl(45, 90%, 70%)', // Yellow
+        'hsl(200, 80%, 60%)', // Blue
+        'hsl(15, 85%, 65%)', // Red-Orange
+        'hsl(280, 70%, 60%)', // Magenta
+      ];
+      
+      // Add colorful fish (more fish, fewer other creatures)
+      for (let i = 0; i < 20; i++) {
         const creature: Fish = {
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 1,
-          size: Math.random() * 20 + 10,
-          color: `hsl(${185 + Math.random() * 40}, ${60 + Math.random() * 30}%, ${40 + Math.random() * 30}%)`,
-          type: types[Math.floor(Math.random() * types.length)],
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 0.8,
+          size: Math.random() * 15 + 8,
+          color: fishColors[Math.floor(Math.random() * fishColors.length)],
+          type: 'fish',
           angle: Math.random() * Math.PI * 2,
           phase: Math.random() * Math.PI * 2
         };
@@ -61,19 +72,41 @@ export function OceanCanvas({ width = 800, height = 600, className = "" }: Ocean
       ctx.translate(fish.x, fish.y);
       ctx.rotate(fish.angle);
       
-      // Fish body
-      ctx.fillStyle = fish.color;
+      // Fish body with gradient
+      const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, fish.size);
+      gradient.addColorStop(0, fish.color);
+      gradient.addColorStop(0.7, fish.color.replace(')', ', 0.8)').replace('hsl', 'hsla'));
+      gradient.addColorStop(1, fish.color.replace(')', ', 0.4)').replace('hsl', 'hsla'));
+      
+      ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.ellipse(0, 0, fish.size, fish.size * 0.6, 0, 0, Math.PI * 2);
       ctx.fill();
       
+      // Fish stripes/patterns (for some fish)
+      if (Math.random() > 0.6) {
+        ctx.fillStyle = fish.color.replace(')', ', 0.3)').replace('hsl', 'hsla');
+        for (let i = 0; i < 3; i++) {
+          ctx.beginPath();
+          ctx.ellipse(fish.size * 0.2 * i - fish.size * 0.3, 0, fish.size * 0.1, fish.size * 0.5, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      
       // Fish tail
+      ctx.fillStyle = fish.color;
       ctx.beginPath();
       ctx.moveTo(-fish.size, 0);
       ctx.lineTo(-fish.size * 1.5, -fish.size * 0.5);
       ctx.lineTo(-fish.size * 1.2, 0);
       ctx.lineTo(-fish.size * 1.5, fish.size * 0.5);
       ctx.closePath();
+      ctx.fill();
+      
+      // Fish fins
+      ctx.fillStyle = fish.color.replace(')', ', 0.7)').replace('hsl', 'hsla');
+      ctx.beginPath();
+      ctx.ellipse(0, fish.size * 0.4, fish.size * 0.3, fish.size * 0.2, Math.PI * 0.3, 0, Math.PI * 2);
       ctx.fill();
       
       // Fish eye
@@ -85,6 +118,12 @@ export function OceanCanvas({ width = 800, height = 600, className = "" }: Ocean
       ctx.fillStyle = 'black';
       ctx.beginPath();
       ctx.arc(fish.size * 0.35, -fish.size * 0.2, fish.size * 0.08, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Eye highlight
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(fish.size * 0.37, -fish.size * 0.22, fish.size * 0.03, 0, Math.PI * 2);
       ctx.fill();
       
       ctx.restore();
@@ -187,18 +226,8 @@ export function OceanCanvas({ width = 800, height = 600, className = "" }: Ocean
           creature.y += Math.sin(Date.now() * 0.002 + creature.phase) * 0.5;
         }
         
-        // Draw creature
-        switch (creature.type) {
-          case 'fish':
-            drawFish(ctx, creature);
-            break;
-          case 'jellyfish':
-            drawJellyfish(ctx, creature);
-            break;
-          case 'seahorse':
-            drawSeahorse(ctx, creature);
-            break;
-        }
+        // Draw creature (only fish now)
+        drawFish(ctx, creature);
       });
       
       animationRef.current = requestAnimationFrame(animate);
@@ -217,7 +246,7 @@ export function OceanCanvas({ width = 800, height = 600, className = "" }: Ocean
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 pointer-events-none opacity-60 ${className}`}
+      className={`absolute inset-0 pointer-events-none opacity-50 -z-10 ${className}`}
       style={{ width: '100%', height: '100%' }}
     />
   );

@@ -87,13 +87,13 @@ export function VictoryScreen({ score, accuracy, timeElapsed, onRestart }: Victo
       </div>
 
       {/* Enhanced celebration atmosphere */}
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none -z-20">
         {/* Ocean creatures canvas */}
         <OceanCanvas />
         
         {/* Ocean decorations */}
-        <div className="coral-reef opacity-40" />
-        <div className="ocean-floor opacity-50" />
+        <div className="coral-reef opacity-20" />
+        <div className="ocean-floor opacity-30" />
       </div>
     </div>
   );

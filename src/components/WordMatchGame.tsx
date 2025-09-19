@@ -141,13 +141,13 @@ export function WordMatchGame() {
       </div>
 
       {/* Enhanced Ocean Atmosphere */}
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none -z-20">
         {/* Ocean creatures canvas */}
         <OceanCanvas />
         
         {/* Additional coral decorations */}
-        <div className="coral-reef opacity-30" />
-        <div className="ocean-floor opacity-40" />
+        <div className="coral-reef opacity-20" />
+        <div className="ocean-floor opacity-30" />
       </div>
     </div>
   );

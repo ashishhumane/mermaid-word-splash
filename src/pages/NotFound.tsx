@@ -13,11 +13,13 @@ const NotFound = () => {
   return (
     <div className="min-h-screen ocean-container flex items-center justify-center p-4">
       {/* Ocean creatures canvas */}
-      <OceanCanvas />
-      
-      {/* Ocean atmosphere elements */}
-      <div className="coral-reef opacity-30" />
-      <div className="ocean-floor opacity-40" />
+      <div className="fixed inset-0 pointer-events-none -z-20">
+        <OceanCanvas />
+        
+        {/* Ocean atmosphere elements */}
+        <div className="coral-reef opacity-20" />
+        <div className="ocean-floor opacity-30" />
+      </div>
       
       <Card className="text-center p-8 bg-card/80 backdrop-blur-sm border-primary/30">
         <h1 className="mb-4 text-4xl font-bold text-primary">404</h1>
