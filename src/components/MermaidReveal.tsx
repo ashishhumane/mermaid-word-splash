@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import mermaidSilhouette from "@/assets/mermaid-silhouette.jpg";
+import { OceanCanvas } from "./OceanCanvas";
 
 interface MermaidRevealProps {
   revealedParts: number;
@@ -9,15 +10,6 @@ interface MermaidRevealProps {
 
 export function MermaidReveal({ revealedParts, totalParts, isComplete }: MermaidRevealProps) {
   const revealPercentage = (revealedParts / totalParts) * 100;
-
-  // Generate bubble data for consistent animation
-  const bubbles = Array.from({ length: 15 }).map((_, i) => ({
-    id: i,
-    size: ['bubble-small', 'bubble-medium', 'bubble-large'][i % 3],
-    left: Math.random() * 85 + 5,
-    bottom: Math.random() * 90 + 5,
-    delay: Math.random() * 6
-  }));
 
   return (
     <div className="relative w-64 h-64 mx-auto">
@@ -30,18 +22,8 @@ export function MermaidReveal({ revealedParts, totalParts, isComplete }: Mermaid
         {/* Coral reef */}
         <div className="coral-reef" />
         
-        {/* Realistic floating bubbles */}
-        {bubbles.map((bubble) => (
-          <div
-            key={bubble.id}
-            className={`bubble ${bubble.size} animate-realistic-float`}
-            style={{
-              left: bubble.left + '%',
-              bottom: bubble.bottom + '%',
-              animationDelay: bubble.delay + 's'
-            }}
-          />
-        ))}
+        {/* Ocean creatures canvas */}
+        <OceanCanvas width={256} height={256} />
       </div>
 
       {/* Mermaid container */}

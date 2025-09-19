@@ -4,6 +4,7 @@ import { WordChoice } from "./WordChoice";
 import { GameStats } from "./GameStats";
 import { VictoryScreen } from "./VictoryScreen";
 import { TTSButton } from "./TTSButton";
+import { OceanCanvas } from "./OceanCanvas";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
 
@@ -141,22 +142,8 @@ export function WordMatchGame() {
 
       {/* Enhanced Ocean Atmosphere */}
       <div className="fixed inset-0 pointer-events-none">
-        {/* Continuous bubble stream */}
-        {Array.from({ length: 35 }).map((_, i) => {
-          const bubbleType = i % 3 === 0 ? 'bubble-large' : i % 2 === 0 ? 'bubble-medium' : 'bubble-small';
-          return (
-            <div
-              key={i}
-              className={`bubble ${bubbleType} animate-realistic-float`}
-              style={{
-                left: Math.random() * 100 + '%',
-                bottom: Math.random() * 20 - 10 + '%',
-                animationDelay: Math.random() * 8 + 's',
-                animationDuration: (Math.random() * 4 + 4) + 's'
-              }}
-            />
-          );
-        })}
+        {/* Ocean creatures canvas */}
+        <OceanCanvas />
         
         {/* Additional coral decorations */}
         <div className="coral-reef opacity-30" />

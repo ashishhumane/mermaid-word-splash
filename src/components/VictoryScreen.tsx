@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { OceanCanvas } from "./OceanCanvas";
 import { Trophy, Star, RotateCcw } from "lucide-react";
 import mermaidSilhouette from "@/assets/mermaid-silhouette.jpg";
 
@@ -85,23 +86,14 @@ export function VictoryScreen({ score, accuracy, timeElapsed, onRestart }: Victo
         </Button>
       </div>
 
-      {/* Enhanced celebration bubbles */}
+      {/* Enhanced celebration atmosphere */}
       <div className="fixed inset-0 pointer-events-none">
-        {Array.from({ length: 25 }).map((_, i) => {
-          const bubbleType = i % 3 === 0 ? 'bubble-large' : i % 2 === 0 ? 'bubble-medium' : 'bubble-small';
-          return (
-            <div
-              key={i}
-              className={`bubble ${bubbleType} animate-realistic-float treasure-effect`}
-              style={{
-                left: Math.random() * 100 + '%',
-                bottom: Math.random() * 30 - 15 + '%',
-                animationDelay: Math.random() * 6 + 's',
-                animationDuration: (Math.random() * 3 + 3) + 's'
-              }}
-            />
-          );
-        })}
+        {/* Ocean creatures canvas */}
+        <OceanCanvas />
+        
+        {/* Ocean decorations */}
+        <div className="coral-reef opacity-40" />
+        <div className="ocean-floor opacity-50" />
       </div>
     </div>
   );
